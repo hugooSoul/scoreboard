@@ -24,9 +24,24 @@ function Header(props) {
   );
 }
 
-Header.PropTypes = {
+Header.propTypes = {
   title: React.PropTypes.string.isRequired,
 };
+
+var Counter = React.createClass({
+  PropTypes: {
+    score: React.PropTypes.number.isRequired,
+  },
+  render: function(){
+    return (
+      <div className="counter">
+        <button className="counter-action decrement"> - </button>
+        <div className="counter-score"> {this.props.score} </div>
+        <button className="counter-action increment"> + </button>
+      </div>
+    );
+  }
+});
 
 function Player(props) {
   return (
@@ -34,7 +49,6 @@ function Player(props) {
       <div className="player-name">
         {props.name}
       </div>
-
       <div className="player-score">
         <Counter score={props.score} />
       </div>
@@ -42,24 +56,8 @@ function Player(props) {
   );
 }
 
-Player.PropTypes = {
+Player.propTypes = {
   name: React.PropTypes.string.isRequired,
-  score: React.PropTypes.number.isRequired,
-};
-
-function Counter(props) {
-  return (
-    <div className="counter">
-      <button className="counter-action decrement"> - </button>
-      <div className="counter-score">
-        {props.score}
-      </div>
-      <button className="counter-action increment"> + </button>
-    </div>
-  );
-}
-
-Counter.PropTypes = {
   score: React.PropTypes.number.isRequired,
 };
 
@@ -77,7 +75,7 @@ function Application(props) {
   );
 }
 
-Application.PropTypes = {
+Application.propTypes = {
   title: React.PropTypes.string,
   players: React.PropTypes.arrayOf(React.PropTypes.shape({
     name: React.PropTypes.string.isRequired,
@@ -85,8 +83,9 @@ Application.PropTypes = {
     id: React.PropTypes.number.isRequired,
   })).isRequired,
 };
+
 Application.defaultProps = {
   title: "Scoreboard",
-};
+}
 
-ReactDOM.render(<Application players={PLAYERS} />, document.getElementById('container'));
+ReactDOM.render(<Application players={PLAYERS}/>, document.getElementById('container'));
