@@ -14,21 +14,36 @@ function Player(props) {
   return (
     <div className="player">
       <div className="player-name">
-        Hugo Mandujano
+        {props.name}
       </div>
 
       <div className="player-score">
-        <div className="counter">
-          <button className="counter-action decrement"> - </button>
-          <div className="counter-score">
-            58
-          </div>
-          <button className="counter-action increment"> + </button>
-        </div>
+        <Counter score={props.score} />
       </div>
     </div>
   );
 }
+
+Player.PropTypes = {
+  name: React.PropTypes.string.isRequired,
+  score: React.PropTypes.number.isRequired,
+};
+
+function Counter(props) {
+  return (
+    <div className="counter">
+      <button className="counter-action decrement"> - </button>
+      <div className="counter-score">
+        {props.score}
+      </div>
+      <button className="counter-action increment"> + </button>
+    </div>
+  );
+}
+
+Counter.PropTypes = {
+  score: React.PropTypes.number.isRequired,
+};
 
 function Application(props) {
   return (
@@ -36,7 +51,8 @@ function Application(props) {
       <Header title={props.title} />
 
       <div className="players">
-        <Player />
+        <Player name="Hugo Mandujano" score={24} />
+        <Player name="Jane Doe" score={8} />
       </div>
     </div>
   );
